@@ -15,6 +15,7 @@ class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -32,8 +33,13 @@ class Login : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this, "Log in successful.", Toast.LENGTH_SHORT).show()
-                        // Navigate to another activity or perform desired actions
+                        //Toast.makeText(this, "Log in successful.", Toast.LENGTH_SHORT).show()
+                        val user = auth.currentUser
+                        Toast.makeText(this, "Welcome, ${user?.displayName}!", Toast.LENGTH_SHORT).show()
+                        // Navigate to GameMainPage activity
+                        val intent = Intent(this, GameMainPage::class.java)
+                        startActivity(intent)
+                        finish() // Optional: close MainActivity
                     } else {
                         Toast.makeText(this, "Login Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }

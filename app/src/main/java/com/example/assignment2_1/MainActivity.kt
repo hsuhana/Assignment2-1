@@ -26,6 +26,10 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseUser
 
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -138,9 +142,15 @@ class MainActivity : AppCompatActivity() {
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    //val user = firebaseAuth.currentUser
+                    //binding.tvWelcome.text = "Welcome, ${user?.displayName ?: "User"}!"
+                    //Toast.makeText(this, "Sign-in successful!", Toast.LENGTH_SHORT).show()
                     val user = firebaseAuth.currentUser
-                    binding.tvWelcome.text = "Welcome, ${user?.displayName ?: "User"}!"
-                    Toast.makeText(this, "Sign-in successful!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Welcome, ${user?.displayName}!", Toast.LENGTH_SHORT).show()
+                    // Navigate to GameMainPage activity
+                    val intent = Intent(this, GameMainPage::class.java)
+                    startActivity(intent)
+                    finish() // Optional: close MainActivity
                 } else {
                     binding.tvWelcome.text = "Sign-in failed."
                     Toast.makeText(this, "Sign-in failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
@@ -185,8 +195,14 @@ class MainActivity : AppCompatActivity() {
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener{
                 task ->
             if(task.isSuccessful){
+                //val user = firebaseAuth.currentUser
+                //binding.tvWelcome.text = "Welcome ${user?.displayName}"
                 val user = firebaseAuth.currentUser
-                binding.tvWelcome.text = "Welcome ${user?.displayName}"
+                Toast.makeText(this, "Welcome, ${user?.displayName}!", Toast.LENGTH_SHORT).show()
+                // Navigate to GameMainPage activity
+                val intent = Intent(this, GameMainPage::class.java)
+                startActivity(intent)
+                finish() // Optional: close MainActivity
             }else{
                 binding.tvWelcome.text = "Sign-In Failed: ${task.exception?.message}"
             }

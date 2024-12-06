@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.google.gms.google.services)
 }
 
+
+
 android {
     namespace = "com.example.assignment2_1"
     compileSdk = 35
@@ -38,7 +40,11 @@ android {
     viewBinding{enable = true}
 }
 
+
+
 dependencies {
+
+    implementation("com.facebook.android:facebook-android-sdk:[8,9)")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -51,7 +57,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.google.android.gms:play-services-auth:$ {libs.versions.googlePlayServicesAuth}")
-
 
     implementation ("com.facebook.android:facebook-applinks:latest.release")
     implementation ("com.facebook.android:facebook-common:latest.release")
